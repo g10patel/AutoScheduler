@@ -32,6 +32,15 @@ public class Main {
                while (user == null)
                {
                    System.out.println("Incorrect username/password");
+                   System.out.println("Press 1 to create a new username and password or 2 to try again");
+                   int num = getInput.getUserType();
+                   if (num == 1)
+                   {
+                       User newUser = User.createUser();
+                       User.addUser(newUser);
+                       Planner.Execute(newUser);
+                       break;
+                   }
                    user = User.checkExists();
                }
            }
@@ -40,6 +49,7 @@ public class Main {
        }
        else
        {
+           
            User newUser = User.createUser();
            User.addUser(newUser);
            Planner.Execute(newUser);

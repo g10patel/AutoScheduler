@@ -1,6 +1,7 @@
 package com.company;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,6 +20,7 @@ public class Planner {
 
         }
 
+
         System.out.println("There are various commands you can choose from.");
         System.out.println("Press 1 to create a task");
         System.out.println("Press 2 to see a list on today's tasks");
@@ -27,17 +29,27 @@ public class Planner {
         System.out.println("Press 5 for settings");
         System.out.println("Press 0 to quit");
         int input = getInput.getInt();
-        if (input == 1)
-        {
-            Task.addTask(user);
-        }
-        if(input == 3)
-        {
-            Task.printTasks(user);
-        }
-        if(input == 0)
-        {
-            return;
+
+        switch(input){
+            case 1:
+                Task.addTask(user);
+                Execute(user);
+
+            case 2:
+                Task.printCurrentDayTask(user);
+                Execute(user);
+
+            case 3:
+                Task.printTasks(user);
+                Execute(user);
+
+            case 4:
+
+            case 5:
+            case 0:
+            default :
+                System.out.println("Invalid input");
+                Execute(user);
         }
 
 

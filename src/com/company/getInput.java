@@ -1,5 +1,7 @@
 package com.company;
 
+import org.joda.time.LocalDate;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.channels.ScatteringByteChannel;
@@ -46,10 +48,10 @@ public class getInput {
         return a;
     }
 
-    public static Date getDate() throws Exception
+    public static LocalDate getDate() throws Exception
     {
         String dateString = getString();
-        Date date = new SimpleDateFormat("YYYY/MM/DD").parse(dateString);
+        LocalDate date = new LocalDate(dateString);
         return date;
     }
 
@@ -68,7 +70,7 @@ public class getInput {
             File myObj = new File(user.userName + ".txt");
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
-                tasks.append(myReader.nextLine());
+                tasks.append(myReader.nextLine()+"\n");
             }
         }
         catch(IOException e){

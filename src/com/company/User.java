@@ -63,7 +63,7 @@ public class User {
         return (new User(userName, passWord));
     }
 
-    // TODO
+
     // scan usernames and passwords exclusivly
     public static User checkExists() throws FileNotFoundException {
         String userName;

@@ -1,18 +1,20 @@
 package com.company;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import org.joda.time.LocalDate;
+
+import java.io.*;
+import java.nio.Buffer;
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.Scanner;
 
 public class Task {
     String task;
     String description;
-    Date date; //year, month, day
+    LocalDate date; //year, month, day
     LocalTime time;
 
-    private Task(String task, String description, Date date, LocalTime time)
+    private Task(String task, String description, LocalDate date, LocalTime time)
     {
         this.task = task;
         this.description = description;
@@ -21,6 +23,32 @@ public class Task {
     }
 
 
+    public static void printCurrentDayTask(User user) throws Exception {
+        StringBuilder tasks = new StringBuilder();
+        String currDate = new LocalDate().toString();
+        try {
+            File myObj = new File(user.userName + ".txt");
+            Scanner myReader = new Scanner(myObj);
+            while (myReader.hasNextLine()) {
+                String line = myReader.nextLine();
+                String task[] = line.split(":");
+
+
+                if(task[2].equals(currDate)){
+                    tasks.append(line + "\n");
+                }
+
+            }
+            myReader.close();
+        }
+        catch(IOException e){
+            System.out.println("An error occurred");
+            e.printStackTrace();
+        }
+
+        System.out.println(tasks);
+
+    }
 
 
     public static void addTask(User user) throws Exception {
@@ -28,15 +56,15 @@ public class Task {
         String task = getInput.getString();
         System.out.println("Enter a description of the task");
         String description = getInput.getString();
-        System.out.println("Enter the date the task needs to be completed in the format YYYY/MM/DD");
-        Date date = getInput.getDate();
+        System.out.println("Enter the date the task needs to be completed in the format YYYY-MM-DD");
+        LocalDate date = getInput.getDate();
         System.out.println("Enter the time the task needs to be completed in the format HH:MM");
         LocalTime time = getInput.getTime();
 
         try
         {
             FileWriter myWriter = new FileWriter(user.userName+".txt", true);
-            myWriter.write(task+","+description+","+date+","+time+"\n");
+            myWriter.write(task+","+description+","+time+":"+date+"\n");
             myWriter.close();
         }
         catch (IOException e)
