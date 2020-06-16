@@ -1,13 +1,15 @@
 package com.company;
 
 import org.joda.time.LocalDate;
+import org.joda.*;
+import org.joda.time.LocalTime;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.channels.ScatteringByteChannel;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
-import java.util.Date;
+
+
 import java.util.Scanner;
 
 public class getInput {
@@ -40,7 +42,7 @@ public class getInput {
         Scanner in = new Scanner(System.in);
         int a = in.nextInt();
 
-        if(a<1)
+        if(a<0)
         {
 
             return -1;
@@ -58,8 +60,8 @@ public class getInput {
     public static LocalTime getTime()
     {
         LocalTime time;
-        String timeString = getString();
-        time = LocalTime.parse(timeString);
+        String[] timeString = getString().split(":");
+        time = new LocalTime(Integer.parseInt(timeString[0]), Integer.parseInt(timeString[1]));
         return time;
     }
 

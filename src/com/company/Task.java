@@ -1,10 +1,11 @@
 package com.company;
 
 import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 
 import java.io.*;
 import java.nio.Buffer;
-import java.time.LocalTime;
+
 import java.util.Date;
 import java.util.Scanner;
 
@@ -21,6 +22,14 @@ public class Task {
         this.date = date;
         this.time = time;
     }
+    public static Task toTask(String taskString)
+    {
+        String[] taskArr = taskString.split(",");
+        String[] timeArr = taskArr[2].split(":");
+        System.out.println(new LocalTime(Integer.parseInt(timeArr[0]), Integer.parseInt(timeArr[1])));
+        Task task = new Task(taskArr[0], taskArr[1], new LocalDate(taskArr[3]), new LocalTime(Integer.parseInt(timeArr[0]), Integer.parseInt(timeArr[1])));
+        return task;
+    }
 
 
     public static void printCurrentDayTask(User user) throws Exception {
@@ -31,10 +40,10 @@ public class Task {
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
                 String line = myReader.nextLine();
-                String task[] = line.split(":");
+                String task[] = line.split(",");
 
-
-                if(task[2].equals(currDate)){
+                System.out.println(task[3]);
+                if(task[3].equals(currDate)){
                     tasks.append(line + "\n");
                 }
 
@@ -64,7 +73,7 @@ public class Task {
         try
         {
             FileWriter myWriter = new FileWriter(user.userName+".txt", true);
-            myWriter.write(task+","+description+","+time+":"+date+"\n");
+            myWriter.write(task+","+description+","+time+","+date+"\n");
             myWriter.close();
         }
         catch (IOException e)
@@ -73,10 +82,10 @@ public class Task {
             e.printStackTrace();
         }
     }
+
     public static void printTasks(User user) throws Exception {
         System.out.println("Here are all of your tasks");
         System.out.println(getInput.getFile(user));
-        Planner.Execute(user);
     }
 
 

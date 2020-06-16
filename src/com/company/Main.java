@@ -25,7 +25,7 @@ public class Main {
            User user = User.checkExists();
            if (user != null)
            {
-               Planner.Execute(user);
+               Planner.Execute(user, Planner.loadData(user));
            }
            else
            {
@@ -38,7 +38,7 @@ public class Main {
                    {
                        User newUser = User.createUser();
                        User.addUser(newUser);
-                       Planner.Execute(newUser);
+                       Planner.Execute(newUser, Planner.loadData(newUser));
                        break;
                    }
                    user = User.checkExists();
@@ -52,7 +52,8 @@ public class Main {
            
            User newUser = User.createUser();
            User.addUser(newUser);
-           Planner.Execute(newUser);
+
+           Planner.Execute(newUser, Planner.loadData(newUser));
        }
 
 
