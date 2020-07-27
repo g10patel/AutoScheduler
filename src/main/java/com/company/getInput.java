@@ -18,12 +18,10 @@ public class getInput {
     {
         Scanner in = new Scanner(System.in);
         int a = in.nextInt();
-
         if(a != 1 && a != 2)
         {
             return -1;
         }
-
         return a;
 
     }
@@ -33,7 +31,6 @@ public class getInput {
     {
         Scanner in = new Scanner(System.in);
         String ret = in.nextLine();
-
         return ret;
     }
 
