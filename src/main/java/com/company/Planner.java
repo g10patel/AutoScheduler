@@ -11,12 +11,18 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Planner {
+
+
+    private Planner ( Settings settings) {
+        settings.autoSchedule = false;
+    }
+
     public static void Execute(User user, ArrayList<Task> tasks) throws Exception {
         System.out.println("There are various commands you can choose from.");
         System.out.println("Press 1 to create a task");
         System.out.println("Press 2 to see a list on today's tasks");
-        System.out.println("Press 3 to make a task as complete");
-        System.out.println("Press 4 to complete list of all tasks");
+        System.out.println("Press 3 to mark a task as complete");
+        System.out.println("Press 4 to see a complete list of all tasks");
         System.out.println("Press 5 to delete a task");
         System.out.println("Press 6 for settings");
         System.out.println("Press 7 to save your planner");
@@ -44,6 +50,15 @@ public class Planner {
                 Execute(user,tasks);
 
             case 6://TODO
+                /*
+                Toggle autoschedule
+                change username
+                change password
+                 */
+                System.out.println(user.setting.autoSchedule);
+                user.setting.toggleAutoSchedule();
+                System.out.println(user.setting.autoSchedule);
+                Execute(user,tasks);
 
             case 7:
                 saveData(user, tasks);
@@ -59,8 +74,14 @@ public class Planner {
 
     }
 
-    private static void saveData(User user, ArrayList<Task> tasks) throws IOException {
+    public static void sortTasks(User user, ArrayList<Task> tasks){
 
+    }
+
+
+
+    private static void saveData(User user, ArrayList<Task> tasks) throws IOException {
+        //Save planner
         File oldf = new File(user.userName+".txt");
         oldf.delete();
         File newf = new File(user.userName+".txt");
@@ -70,6 +91,7 @@ public class Planner {
             myWriter.append(a.task+","+a.description+","+a.time+","+a.date+"\n");
         }
         myWriter.close();
+
     }
 
 

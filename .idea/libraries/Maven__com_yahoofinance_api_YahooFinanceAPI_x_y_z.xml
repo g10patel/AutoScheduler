@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.yahoofinance-api:YahooFinanceAPI:x.y.z">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/yahoofinance-api/YahooFinanceAPI/x.y.z/YahooFinanceAPI-x.y.z.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/yahoofinance-api/YahooFinanceAPI/x.y.z/YahooFinanceAPI-x.y.z-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/yahoofinance-api/YahooFinanceAPI/x.y.z/YahooFinanceAPI-x.y.z-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

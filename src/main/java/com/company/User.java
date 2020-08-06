@@ -9,11 +9,14 @@ import java.util.Scanner;
 public class User {
     String userName;
     String password;
+    Settings setting;
+
 
     private User(String userName, String password)
     {
         this.userName = userName;
         this.password = password;
+        this.setting = new Settings();
     }
 
 
@@ -22,25 +25,21 @@ public class User {
         File users = new File("users.txt");
         boolean exists = users.exists();
 
-        if (exists == false)
-        {
+        if (!exists) {
             try {
                 users.createNewFile();
-            }
-            catch (IOException e)
-            {
+            } catch (IOException e) {
                 System.out.println("An error occurred");
                 e.printStackTrace();
             }
 
         }
-        
         else
         {
             try
             {
                 FileWriter myWriter = new FileWriter("users.txt", true);
-                myWriter.write(newUser.userName + " " + newUser.password+"\n");
+                myWriter.write(newUser.userName + " " + newUser.password+ " " + newUser.setting.autoSchedule+"\n");
                 myWriter.close();
             }
             catch (IOException e)
@@ -68,6 +67,7 @@ public class User {
     public static User checkExists() throws FileNotFoundException {
         String userName;
         String passWord;
+
         System.out.println("Please enter a username");
         userName = getInput.getString();
         System.out.println("Please enter a password");
@@ -76,7 +76,7 @@ public class User {
 
         File users = new File("users.txt");
         boolean exists = users.exists();
-        if (exists == false) return null;
+        if (!exists) return null;
 
         else
         {
@@ -88,12 +88,13 @@ public class User {
                 {
                     if(lineFromLine.contains(passWord))
                     {
-                        return (new User(userName, passWord));
+                        User toReturn = new User(userName, passWord);
+                        toReturn.setting.autoSchedule = Boolean.parseBoolean(lineFromLine.split(" ")[2]);
+                        return (toReturn);
                     }
                     else return null;
                 }
             }
-
         }
         return null;
     }

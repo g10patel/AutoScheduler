@@ -47,6 +47,14 @@ public class getInput {
         return a;
     }
 
+    public static double getDouble()
+    {
+        Scanner in = new Scanner(System.in);
+        return(in.nextDouble());
+
+    }
+
+
     public static LocalDate getDate() throws Exception
     {
         String dateString = getString();
