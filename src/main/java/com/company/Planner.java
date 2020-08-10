@@ -1,7 +1,5 @@
 package com.company;
 
-import org.joda.time.DateTime;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -55,6 +53,35 @@ public class Planner {
                 change username
                 change password
                  */
+                System.out.println("Enter the number of which setting you would like to change");
+                System.out.println("Press 1 to set the time in between tasks");
+                System.out.println("Press 2 to set the amount of time you want to work during each session");
+                System.out.println("Press 3 to set the daily start time you want to get started on your work");
+                System.out.println("Press 4 to set the daily end time you want to stop working for the day");
+                System.out.println("Press 5 to set/add restricted times you dont want to work during the day");
+                System.out.println("Press 6 to remove a restricted time");
+
+                int choice = getInput.getInt();
+                switch(choice){
+                    case 1:
+                        System.out.println("Enter the amount of time in minutes you want in between work sessions.");
+
+                    case 2:
+                        System.out.println("Enter the amount of time in minutes you want to work during each session");
+
+                    case 3:
+                        System.out.println("Enter the time(HH:MM) that you want to start working for the day");
+
+                    case 4:
+                        System.out.println("Enter the time(HH:MM) that you want to stop working for the day");
+
+                    case 5:
+                        System.out.println("Press 1 to add restricted time(s)");
+                        System.out.println("Press 2 to remove existed and set new restricted time(s)");
+
+                    case 6:
+                        System.out.println("Press the number of the restricted time you wan to remove");
+                }
                 System.out.println(user.setting.autoSchedule);
                 user.setting.toggleAutoSchedule();
                 System.out.println(user.setting.autoSchedule);
@@ -64,6 +91,7 @@ public class Planner {
                 saveData(user, tasks);
                 Execute(user,tasks);
             case 0:
+                sortTasks(user, tasks);
                 System.exit(0);
             default :
                 System.out.println("Invalid input");
@@ -73,11 +101,15 @@ public class Planner {
 
 
     }
-
+    //If auto schedule is disabled, tasks will be sorted by date. If enabled, tasks will be arranged.
     public static void sortTasks(User user, ArrayList<Task> tasks){
+        //Sort by date
+        for (Task i : tasks)
+        {
+            System.out.println(i.date);
+        }
 
     }
-
 
 
     private static void saveData(User user, ArrayList<Task> tasks) throws IOException {
@@ -88,7 +120,7 @@ public class Planner {
         FileWriter myWriter = new FileWriter(newf, true);
         for (Task a : tasks)
         {
-            myWriter.append(a.task+","+a.description+","+a.time+","+a.date+"\n");
+            myWriter.append(a.task+","+a.description+","+a.time+","+a.date+","+a.timeToComplete+"\n");
         }
         myWriter.close();
 

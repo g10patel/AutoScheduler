@@ -20,34 +20,24 @@ public class User {
     }
 
 
-    public static void addUser(User newUser)
-    {
+    public static void addUser(User newUser) throws IOException {
         File users = new File("users.txt");
         boolean exists = users.exists();
 
         if (!exists) {
             try {
                 users.createNewFile();
+
             } catch (IOException e) {
                 System.out.println("An error occurred");
                 e.printStackTrace();
             }
 
         }
-        else
-        {
-            try
-            {
-                FileWriter myWriter = new FileWriter("users.txt", true);
-                myWriter.write(newUser.userName + " " + newUser.password+ " " + newUser.setting.autoSchedule+"\n");
-                myWriter.close();
-            }
-            catch (IOException e)
-            {
-                System.out.println("An error occurred");
-                e.printStackTrace();
-            }
-        }
+
+        FileWriter myWriter = new FileWriter("users.txt", true);
+        myWriter.write(newUser.userName + " " + newUser.password+ " " + newUser.setting.autoSchedule+"\n");
+        myWriter.close();
     }
 
     public static User createUser()
