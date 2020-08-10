@@ -67,6 +67,11 @@ public class Task {
         tasks.remove(indexOfTaskToDelete);
         return tasks;
     }
+    public  LocalDate getDate()
+    {
+        return this.date;
+    }
+
 
     public static ArrayList<Task> addTask(User user, ArrayList<Task> tasks) throws Exception {
         System.out.println("Enter your task");
@@ -102,6 +107,4 @@ public class Task {
         String[] timeArr = this.time.toString().split(":");
         return (this.task + "," + this.description + "," + timeArr[0] + ":" + timeArr[1] + "," + this.date + "," + this.timeToComplete);
     }
-
-
 }

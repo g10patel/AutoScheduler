@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class Planner {
@@ -91,7 +92,6 @@ public class Planner {
                 saveData(user, tasks);
                 Execute(user,tasks);
             case 0:
-                sortTasks(user, tasks);
                 System.exit(0);
             default :
                 System.out.println("Invalid input");
@@ -102,18 +102,16 @@ public class Planner {
 
     }
     //If auto schedule is disabled, tasks will be sorted by date. If enabled, tasks will be arranged.
-    public static void sortTasks(User user, ArrayList<Task> tasks){
+    public static ArrayList<Task> sortTasks(ArrayList<Task> tasks){
         //Sort by date
-        for (Task i : tasks)
-        {
-            System.out.println(i.date);
-        }
-
+        tasks.sort(Comparator.comparing(Task::getDate));
+        return tasks;
     }
 
 
     private static void saveData(User user, ArrayList<Task> tasks) throws IOException {
         //Save planner
+        tasks = sortTasks(tasks);
         File oldf = new File(user.userName+".txt");
         oldf.delete();
         File newf = new File(user.userName+".txt");
