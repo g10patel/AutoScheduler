@@ -1,11 +1,15 @@
 package com.company;
 
+import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Scanner;
 
@@ -104,7 +108,24 @@ public class Planner {
     //If auto schedule is disabled, tasks will be sorted by date. If enabled, tasks will be arranged.
     public static ArrayList<Task> sortTasks(ArrayList<Task> tasks){
         //Sort by date
-        tasks.sort(Comparator.comparing(Task::getDate));
+        //tasks.sort(Comparator.comparing(Task::getDate));
+        Collections.sort(tasks, new Comparator<Task>() {
+            @Override
+            public int compare(Task o1, Task o2) {
+                LocalDate x1 = o1.date;
+                LocalDate x2 = o2.date;
+
+                int comp1 = x1.compareTo(x2);
+                if (comp1 != 0)
+                {
+                    return comp1;
+                }
+
+                LocalTime a1 = o1.time;
+                LocalTime a2 = o2.time;
+                return a1.compareTo(a2);
+            }
+        });
         return tasks;
     }
 
