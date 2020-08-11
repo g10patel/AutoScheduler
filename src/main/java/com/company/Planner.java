@@ -9,8 +9,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Scanner;
 
 public class Planner {
@@ -34,19 +32,19 @@ public class Planner {
 
         switch(input){
             case 1:
-                tasks = Task.addTask(user, tasks);
+                Task.addTask(tasks);
                 Execute(user, tasks);
 
             case 2:
-                Task.printCurrentDayTask(user, tasks);
+                Task.printCurrentDayTask(tasks);
                 Execute(user, tasks);
 
             case 3:
-                tasks = Task.completeTask(tasks);
+                Task.completeTask(tasks);
                 Execute(user,tasks);
 
             case 4:
-                Task.printTasks(user, tasks);
+                Task.printTasks(tasks);
                 Execute(user, tasks);
             case 5:// Delete a task
                 Task.deleteTask(user, tasks);
@@ -106,35 +104,28 @@ public class Planner {
 
     }
     //If auto schedule is disabled, tasks will be sorted by date. If enabled, tasks will be arranged.
-    public static ArrayList<Task> sortTasks(ArrayList<Task> tasks){
+    public static void sortTasks(ArrayList<Task> tasks){
         //Sort by date
         //tasks.sort(Comparator.comparing(Task::getDate));
-        Collections.sort(tasks, new Comparator<Task>() {
-            @Override
-            public int compare(Task o1, Task o2) {
-                LocalDate x1 = o1.date;
-                LocalDate x2 = o2.date;
+        tasks.sort((o1, o2) -> {
+            LocalDate x1 = o1.date;
+            LocalDate x2 = o2.date;
 
-                int comp1 = x1.compareTo(x2);
-                if (comp1 != 0)
-                {
-                    return comp1;
-                }
-
-                LocalTime a1 = o1.time;
-                LocalTime a2 = o2.time;
-                return a1.compareTo(a2);
+            int comp1 = x1.compareTo(x2);
+            if (comp1 != 0) {
+                return comp1;
             }
+
+            LocalTime a1 = o1.time;
+            LocalTime a2 = o2.time;
+            return a1.compareTo(a2);
         });
-        return tasks;
     }
 
 
     private static void saveData(User user, ArrayList<Task> tasks) throws IOException {
         //Save planner
-        tasks = sortTasks(tasks);
-        File oldf = new File(user.userName+".txt");
-        oldf.delete();
+        sortTasks(tasks);
         File newf = new File(user.userName+".txt");
         FileWriter myWriter = new FileWriter(newf, true);
         for (Task a : tasks)
@@ -146,7 +137,7 @@ public class Planner {
     }
 
 
-    public static ArrayList<Task> loadData(User user) throws Exception {
+    public static ArrayList<Task> loadData(User user) {
         File userPlanner = new File(user.userName+".txt");
         if (!userPlanner.exists()) {
             System.out.println("You do not have an existing planner. A blank one has been created.");
@@ -159,7 +150,7 @@ public class Planner {
             }
         }
 
-        ArrayList<Task> data = new ArrayList<Task>();
+        ArrayList<Task> data = new ArrayList<>();
         try {
             File myObj = new File(user.userName + ".txt");
             Scanner myReader = new Scanner(myObj);

@@ -29,7 +29,7 @@ public class Task {
     }
 
     //Prints all tasks that are due on the current day
-    public static void printCurrentDayTask(User user, ArrayList<Task> tasks) {
+    public static void printCurrentDayTask(ArrayList<Task> tasks) {
         StringBuilder currDayTasks = new StringBuilder();
         LocalDate currDate = new LocalDate();
         for (Task i : tasks) {
@@ -45,7 +45,7 @@ public class Task {
 
     public static void deleteTask(User user, ArrayList<Task> tasks) throws Exception {
         System.out.println("Type the number of the task you want to delete");
-        printTasks(user, tasks);
+        printTasks(tasks);
         int indexOfTaskToDelete = getInput.getInt() - 1;
         tasks.remove(indexOfTaskToDelete);
     }
@@ -67,13 +67,8 @@ public class Task {
         tasks.remove(indexOfTaskToDelete);
         return tasks;
     }
-    public  LocalDate getDate()
-    {
-        return this.date;
-    }
 
-
-    public static ArrayList<Task> addTask(User user, ArrayList<Task> tasks) throws Exception {
+    public static ArrayList<Task> addTask(ArrayList<Task> tasks) throws Exception {
         System.out.println("Enter your task");
         String task = getInput.getString();
         System.out.println("Enter a description of the task");
@@ -90,7 +85,7 @@ public class Task {
         return tasks;
     }
 
-    public static void printTasks(User user, ArrayList<Task> tasks) throws Exception {
+    public static void printTasks(ArrayList<Task> tasks) {
         System.out.println("Here are all of your tasks");
         int count = 1;
         for (Task i : tasks) {
